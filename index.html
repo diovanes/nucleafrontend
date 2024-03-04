@@ -81,10 +81,10 @@
         <section>
           <h2>Alterar Ratting</h2>
           <div>
-            <form action="" name="formRatting" id="formMint" method="get">
-              <label for="formRattingValue">Ratting:</label>
+            <form action="" name="formRatting" id="formRatting" method="get">
+              <label for="formAmount">Ratting:</label>
               <br /><br />
-              <input type="text" placeholder="AAA" required name="formRattingValue" id="formRattingValue" />
+              <input type="text" placeholder="AAA" required name="formAmount" id="formAmount" />
               <br /><br />
               <input id="btnChangeRatting" type="button" value="Alterar Ratting" onclick="changeRatting()" />
             </form>
@@ -199,7 +199,7 @@
         const form = document.getElementById("formGetRatting");
         alert("Aguarde a consulta ser processada pelo Provedor");
         const ratting = await contract.rating();
-        form.formGetRatting.value = ratting;
+        form.formAmount.value = ratting;
       }
 
       async function changeRatting() {
@@ -208,7 +208,7 @@
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formRatting");
-        console.log(form.formRattingValue.value);
+        // console.log(form.formRattingValue);
         const tx = await contract.mudaRating(form.formRattingValue.value);
         console.log("tx enviada: ", tx);
         alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
