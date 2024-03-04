@@ -67,7 +67,7 @@
             <form action="" name="formGetRatting" id="formGetRatting" method="get">
               <label for="formAmount">Ratting Atual:</label>
               <br /><br />
-              <input type="number" disabled name="formAmount" id="formAmount" />
+              <input type="text" disabled name="formAmount" id="formAmount" />
               <br /><br />
               <input type="button" value="Consultar Ratting" onclick="consultarRatting()" />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -197,14 +197,15 @@
       async function consultarRatting() {
         event.preventDefault();
         const form = document.getElementById("formGetRatting");
+        console.log(form);
         alert("Aguarde a consulta ser processada pelo Provedor");
         const ratting = await contract.ratting();
-        form.formAmount.value = ratting;
+        form.formGetRatting.value = ratting;
       }
 
       async function changeRatting() {
         event.preventDefault();
-        const btn = document.getElementById("changeRatting");
+        const btn = document.getElementById("btnChangeRatting");
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formRatting");
