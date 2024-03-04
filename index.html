@@ -197,9 +197,8 @@
       async function consultarRatting() {
         event.preventDefault();
         const form = document.getElementById("formGetRatting");
-        console.log(form);
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const ratting = await contract.ratting();
+        const ratting = await contract.rating();
         form.formGetRatting.value = ratting;
       }
 
@@ -209,6 +208,7 @@
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formRatting");
+        console.log(form.formRattingValue.value);
         const tx = await contract.mudaRating(form.formRattingValue.value);
         console.log("tx enviada: ", tx);
         alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
