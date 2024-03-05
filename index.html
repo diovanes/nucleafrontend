@@ -79,14 +79,18 @@
         <hr />
 
         <section>
-          <h2>Alterar Ratting</h2>
+          <h2>Transferir</h2>
           <div>
             <form action="" name="formRatting" id="formRatting" method="get">
-              <label for="formAmount">Ratting:</label>
+              <label for="formTo">Para:</label>
               <br /><br />
-              <input type="text" placeholder="AAA" required name="formAmount" id="formAmount" />
+              <input type="text" placeholder="" required name="formTo" id="formTo" />
               <br /><br />
-              <input id="btnChangeRatting" type="button" value="Alterar Ratting" onclick="changeRatting()" />
+              <label for="formAmount">Para:</label>
+              <br /><br />
+              <input type="number" placeholder="0" required name="formAmount" id="formAmount" />
+              <br /><br />
+              <input id="btnChangeRatting" type="button" value="Alterar Ratting" onclick="transfer()" />
             </form>
           </div>
         </section>
@@ -190,7 +194,7 @@
         event.preventDefault();
         const form = document.getElementById("formSaldo");
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const saldo = await contract.balanceOf(form.formTo.value);
+        const saldo = await contract.nom(form.formTo.value);
         form.formAmount.value = saldo;
       }
 
@@ -198,18 +202,20 @@
         event.preventDefault();
         const form = document.getElementById("formGetRatting");
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const ratting = await contract.rating();
+        const ratting = await contract.name();
+        console.log(ratting);
         form.formAmount.value = ratting;
       }
 
-      async function changeRatting() {
+      async function transfer() {
         event.preventDefault();
         const btn = document.getElementById("btnChangeRatting");
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formRatting");
-        // console.log(form.formRattingValue);
-        const tx = await contract.mudaRating(form.formAmount.value);
+        console.log(form.formTo.value);
+        console.log(form.formAmount.value);
+        const tx = await contract.transfer(form.formTo.value, form.formAmount.value);
         console.log("tx enviada: ", tx);
         alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
         const txReceipt = await tx.wait();
@@ -217,7 +223,7 @@
         if (txReceipt.status === 1) {
           await atualizaTotalSupply();
           alert("Parabéns! Alteração executada com sucesso.");
-          btn.value = "Alterar Ratting";
+          btn.value = "Transferir";
           form.reset();
         }
       }
