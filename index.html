@@ -194,7 +194,7 @@
         event.preventDefault();
         const form = document.getElementById("formSaldo");
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const saldo = await contract.nom(form.formTo.value);
+        const saldo = await contract.balanceOf(form.formTo.value);
         form.formAmount.value = saldo;
       }
 
@@ -202,8 +202,7 @@
         event.preventDefault();
         const form = document.getElementById("formGetRatting");
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const ratting = await contract.name();
-        console.log(ratting);
+        const ratting = await contract.rating();
         form.formAmount.value = ratting;
       }
 
@@ -213,8 +212,6 @@
         btn.value = "Processando...";
         alert("Aguarde e confirme a transação no Metamask");
         const form = document.getElementById("formRatting");
-        console.log(form.formTo.value);
-        console.log(form.formAmount.value);
         const tx = await contract.transfer(form.formTo.value, form.formAmount.value);
         console.log("tx enviada: ", tx);
         alert("Transação enviada a Blockchain. Aguarde.\nID: " + tx.hash);
