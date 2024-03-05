@@ -62,14 +62,14 @@
         <hr />
 
         <section>
-          <h2>Consultar Ratting</h2>
+          <h2>Consultar TotalSuply</h2>
           <div>
-            <form action="" name="formGetRatting" id="formGetRatting" method="get">
-              <label for="formAmount">Ratting Atual:</label>
+            <form action="" name="formTotalSuply" id="formTotalSuply" method="get">
+              <label for="formAmount">TotalSuply Atual:</label>
               <br /><br />
               <input type="text" disabled name="formAmount" id="formAmount" />
               <br /><br />
-              <input type="button" value="Consultar Ratting" onclick="consultarRatting()" />
+              <input type="button" value="Consultar TotalSuply" onclick="consultarTotalSuply()" />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="reset" value="Limpar" />
             </form>
@@ -198,11 +198,11 @@
         form.formAmount.value = saldo;
       }
 
-      async function consultarRatting() {
+      async function consultarTotalSuply() {
         event.preventDefault();
-        const form = document.getElementById("formGetRatting");
+        const form = document.getElementById("formTotalSuply");
         alert("Aguarde a consulta ser processada pelo Provedor");
-        const ratting = await contract.rating();
+        const ratting = await contract.totalSupply();
         form.formAmount.value = ratting;
       }
 
